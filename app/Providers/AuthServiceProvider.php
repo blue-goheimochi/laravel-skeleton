@@ -1,15 +1,11 @@
 <?php
-declare(strict_types=1);
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Contracts\Auth\Access\Gate;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
-/**
- * Class AuthServiceProvider
- */
-final class AuthServiceProvider extends ServiceProvider
+class AuthServiceProvider extends ServiceProvider
 {
     /**
      * The policy mappings for the application.
@@ -19,20 +15,6 @@ final class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         'App\Model' => 'App\Policies\ModelPolicy',
     ];
-
-    /**
-     * Register the application's policies.
-     *
-     * @return void
-     */
-    public function registerPolicies()
-    {
-        /** @var Gate $gate */
-        $gate = $this->app[Gate::class];
-        foreach ($this->policies as $key => $value) {
-            $gate->policy($key, $value);
-        }
-    }
 
     /**
      * Register any authentication / authorization services.
